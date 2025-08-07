@@ -6,10 +6,9 @@ import com.example.basicboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/boards")
@@ -22,5 +21,11 @@ public class BoardController {
     public ResponseEntity<BoardResponseDto> save(@RequestBody CreateBoardRequestDto request) {
         BoardResponseDto boardResponseDto = boardService.save(request.getTitle(), request.getContents(), request.getUsername());
         return new ResponseEntity<>(boardResponseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BoardResponseDto>> findAll() {
+        List<BoardResponseDto> boardResponses = boardService.findAll();
+        return new ResponseEntity<>(boardResponses, HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.basicboard.dto;
 
+import com.example.basicboard.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,4 +14,8 @@ public class BoardResponseDto {
 
     private final String contents;
 
+
+    public static BoardResponseDto of(Board board) {
+        return new BoardResponseDto(board.getId(), board.getTitle(), board.getContents());
+    }
 }
