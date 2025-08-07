@@ -1,10 +1,13 @@
 package com.example.basicboard.service;
 
+import com.example.basicboard.dto.MemberResponseDto;
 import com.example.basicboard.dto.SignUpResponseDto;
 import com.example.basicboard.entity.Member;
 import com.example.basicboard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -16,5 +19,11 @@ public class MemberService {
         Member member = Member.create(username, password, age);
         Member savedMember = memberRepository.save(member);
         return new SignUpResponseDto(savedMember.getId(), savedMember.getUsername(), savedMember.getAge());
+    }
+
+    public MemberResponseDto findById(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return new MemberResponseDto(member.getId(), member.getUsername(), member.getAge());
     }
 }
