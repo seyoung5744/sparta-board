@@ -1,6 +1,7 @@
 package com.example.basicboard.controller;
 
 import com.example.basicboard.dto.BoardResponseDto;
+import com.example.basicboard.dto.BoardWithAgeResponseDto;
 import com.example.basicboard.dto.CreateBoardRequestDto;
 import com.example.basicboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,11 @@ public class BoardController {
     public ResponseEntity<List<BoardResponseDto>> findAll() {
         List<BoardResponseDto> boardResponses = boardService.findAll();
         return new ResponseEntity<>(boardResponses, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BoardWithAgeResponseDto> findById(@PathVariable Long id) {
+        BoardWithAgeResponseDto boardWithAgeResponseDto = boardService.findById(id);
+        return new ResponseEntity<>(boardWithAgeResponseDto, HttpStatus.OK);
     }
 }
