@@ -42,4 +42,9 @@ public class BoardService {
         Member writer = board.getMember();
         return new BoardWithAgeResponseDto(board.getTitle(), board.getContents(), writer.getAge());
     }
+
+    public void delete(Long id) {
+        Board board = boardRepository.findByIdOrElseThrow(id);
+        boardRepository.delete(board);
+    }
 }

@@ -35,4 +35,10 @@ public class BoardController {
         BoardWithAgeResponseDto boardWithAgeResponseDto = boardService.findById(id);
         return new ResponseEntity<>(boardWithAgeResponseDto, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        boardService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
