@@ -3,6 +3,7 @@ package com.example.basicboard.controller;
 import com.example.basicboard.dto.MemberResponseDto;
 import com.example.basicboard.dto.SignUpRequestDto;
 import com.example.basicboard.dto.SignUpResponseDto;
+import com.example.basicboard.dto.UpdatePasswordRequestDto;
 import com.example.basicboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,11 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> findById(@PathVariable Long id) {
         MemberResponseDto memberResponseDto = memberService.findById(id);
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody UpdatePasswordRequestDto request) {
+        memberService.updatePassword(id, request.getOldPassword(), request.getNewPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

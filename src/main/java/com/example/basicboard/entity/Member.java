@@ -32,4 +32,8 @@ public class Member extends BaseEntity {
     public static Member create(String username, String password, Integer age) {
         return new Member(username, password, age);
     }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }
